@@ -477,7 +477,7 @@ class CwaData(BaseData):
         if self.verbose: print('Calculating checksums...', flush=True)
         np_words = np.frombuffer(self.data_buffer, dtype=np.dtype('<H'), count=-1)
         np_sector_words = np.reshape(np_words, (-1, SECTOR_SIZE // 2))
-        self.df['checksum_sum'] = np.sum(np_sector_words, dtype=np.int16, axis=1)
+        self.df['checksum_sum'] = np.sum(np_sector_words, dtype=np.int32, axis=1)	#HB: changed from int16 to int32
 
         # Valid sectors: zero checksum, correct header and packet-length, matching initial data format (numAxesBPS and rateCode)
         if self.verbose: print('Determining valid sectors...', flush=True)
@@ -573,7 +573,7 @@ class CwaData(BaseData):
             dword_view = np.lib.stride_tricks.as_strided(np_dword, (120, len(self.data_buffer) // SECTOR_SIZE), (4, SECTOR_SIZE), writeable=False)
             packed = dword_view.flatten(order='K')
             exponent = packed >> 30
-            self.raw_samples = np.ndarray(shape=(dword_view.size, 3), dtype=np.int16)
+            self.raw_samples = np.ndarray(shape=(dword_view.size, 3), dtype=np.int32)	#HB: updated int16 to int32
             self.raw_samples[:,0] = ((((packed      ) & 0x3ff) ^ 0x0200) - 0x0200) << exponent
             self.raw_samples[:,1] = ((((packed >> 10) & 0x3ff) ^ 0x0200) - 0x0200) << exponent
             self.raw_samples[:,2] = ((((packed >> 20) & 0x3ff) ^ 0x0200) - 0x0200) << exponent
