@@ -2,10 +2,10 @@
 
 This repository contains the Python code for the [Open Movement](https://openmovement.dev) project.
 
-Install the current build from [the repository](https://github.com/digitalinteraction/openmovement-python/):
+Install the current build from [the repository](https://github.com/hbarnes3/openmovement-python/):
 
 ```bash
-python -m pip install "git+https://github.com/digitalinteraction/openmovement-python.git#egg=openmovement"
+python -m pip install "git+https://github.com/hbarnes3/openmovement-python.git#egg=openmovementHB"
 ```
 
 <!--
